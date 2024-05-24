@@ -1,0 +1,15 @@
+package br.com.school.educanet.repository;
+
+import java.util.Optional;
+
+import org.aspectj.apache.bcel.util.Repository;
+import br.com.school.educanet.entity.User;
+import br.com.school.educanet.service.UserService;
+
+
+public interface UserRepository extends Repository<User,String>{
+	Optional<User>
+	findByEmail(String UsuarioEmail);
+		Optional<User>
+	 findBySenha(String usuarioSenha);
+}

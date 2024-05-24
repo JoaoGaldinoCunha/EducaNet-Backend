@@ -1,0 +1,23 @@
+package br.com.school.educanet.service;
+@Service
+public class UserService {
+	@Autowired
+	private UserRepository userRepository;
+	
+	public Usuario saveUser(Usuario Usuario) {
+		return UsuarioRepository.save(Usuario);
+	}	
+	public Usuario AlterarUsuario(Usuario Usuario) {
+	if
+	(UsuarioRepository.findByEmail(Usuario.getUsuarioEmail()).isPresent()){
+		throw new
+		RuntimeException("Email Cadastrado");
+	}
+		
+		return UsuarioRepository.saveAndFlush(Usuario);
+	}
+	public void  ApgarUsuario(String UsuarioEmail ) {
+		Usuario Usuario= UsuarioRepository.findById(UsuarioEmail).get();
+		UsuarioRepository.delete(Usuario);
+	}
+}

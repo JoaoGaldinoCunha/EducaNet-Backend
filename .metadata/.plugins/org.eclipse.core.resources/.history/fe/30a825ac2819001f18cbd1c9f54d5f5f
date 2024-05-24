@@ -1,0 +1,16 @@
+package br.com.school.educanet.repository;
+
+import java.util.Optional;
+
+import org.springframework.data.repository.CrudRepository;
+
+import br.com.school.educanet.entity.User;
+import br.com.school.educanet.service.UserService;
+
+
+public interface UserRepository extends CrudRepository<UserService,String>{
+	Optional<User>
+	findByEmail(String UsuarioEmail);
+		Optional<User>
+	 findBySenha(String usuarioSenha);
+}
