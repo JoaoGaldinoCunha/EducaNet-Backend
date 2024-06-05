@@ -1,8 +1,0 @@
-package br.com.school.educanet.repository;
-
-public interface UserRepository extends JpaRepository<Usuario,String>{
-	Optional<Usuario>
-	findByEmail(String UsuarioEmail);
-		Optional<Usuario>
-	 findBySenha(String usuarioSenha);
-}

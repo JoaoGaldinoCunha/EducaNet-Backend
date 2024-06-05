@@ -1,31 +1,33 @@
 package br.com.school.educanet.service;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import br.com.school.educanet.entity.User;
+import br.com.school.educanet.model.TbUser;
 import br.com.school.educanet.repository.UserRepository;
 
 @Service
 public class UserService {
 	@Autowired
-	private UserRepository userRepository;
-	
-	public 	User saveUser(User user) {
-		return userRepository.save(user);
-	}	
-	public User AlterarUsuario(User user) {
-	if
-	(userRepository.findByEmail(user.getUsuarioEmail()).isPresent()){
-		throw new
-		RuntimeException("Email Cadastrado");
-	}
+	UserRepository userRepository;
 		
-		return userRepository.saveAndFlush(user);
-	}
-	public void  ApgarUsuario(String UsuarioEmail ) {
-		User user= userRepository.findById(UsuarioEmail).get();
-		userRepository.delete(user);
-	}
-	}
+	 public TbUser saveUser(TbUser tbUser) {
+	        TbUser existingUser = userRepository.findByEmail(tbUser.getEmail());
+	        if (existingUser != null) {
+	            throw new RuntimeException("E-mail já cadastrado!");
+	        } else {
+	            return userRepository.save(tbUser);
+	        }
+	    }
+	
+	 public void deleteUserByEmail(String email) {
+	        TbUser existingUser = userRepository.findByEmail(email);
+	        if (existingUser != null) {
+	            userRepository.delete(existingUser);
+	        } else {
+	            throw new RuntimeException("Usuário não encontrado!");
+	       }
+	 }
+	 
+	 
+}
 
