@@ -12,20 +12,25 @@ public class UserService {
 		
 	 public TbUser saveUser(TbUser tbUser) {
 	        TbUser existingUser = userRepository.findByEmail(tbUser.getEmail());
+	        TbUser existingCpf = userRepository.findByUserCpf(tbUser.getUserCpf());
 	        if (existingUser != null) {
 	            throw new RuntimeException("E-mail já cadastrado!");
-	        } else {
+	        } 
+	        else if(existingCpf != null) {
+	        	throw new RuntimeException("CPF já cadastrado!");
+	        }else {
 	            return userRepository.save(tbUser);
 	        }
 	    }
 	
+	 
 	 public void deleteUserByEmail(String email) {
 	        TbUser existingUser = userRepository.findByEmail(email);
 	        if (existingUser != null) {
 	            userRepository.delete(existingUser);
 	        } else {
 	            throw new RuntimeException("Usuário não encontrado!");
-	       }
+	        }
 	 }
 	 
 	 

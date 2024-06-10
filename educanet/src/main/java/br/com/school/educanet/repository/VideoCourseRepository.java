@@ -9,6 +9,6 @@ import br.com.school.educanet.model.TbVideoCourse;
 @Repository
 public interface VideoCourseRepository extends JpaRepository<TbVideoCourse, Integer> {
 	
-	@Query("select vc from TbVideoCourse vc where vc.videoCourseName= :videoCourseName")
-	TbVideoCourse findByName(@Param("videoCourseName") String videoCourseName);
+	@Query("select c from TbVideoCourse c where c.videoCourseName= :Name")
+	TbVideoCourse findByName(@Param("Name") String videoCourseName);
 }

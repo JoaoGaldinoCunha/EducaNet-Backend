@@ -9,11 +9,11 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "tb_video_course")
+@Table(name = "tb_videoCourse")
 public class TbVideoCourse {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long videoCourseId;
 	private String videoCourseName;
 	private String videoCourseUrlId;
@@ -26,7 +26,7 @@ public class TbVideoCourse {
 	public long getVideoCourseId() {
 		return videoCourseId;
 	}
-	public void setVideoCourseId(Integer videoCourseId) {
+	public void setVideoCourseId(long videoCourseId) {
 		this.videoCourseId = videoCourseId;
 	}
 	public String getVideoCourseName() {
@@ -54,4 +54,8 @@ public class TbVideoCourse {
 		this.tbCourse = tbCourse;
 	}
 	
+	
+	
+	
 }
+

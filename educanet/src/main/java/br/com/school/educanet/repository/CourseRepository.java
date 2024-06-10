@@ -10,7 +10,7 @@ import br.com.school.educanet.model.TbCourse;
 @Repository
 public interface CourseRepository extends JpaRepository<TbCourse, Integer>{	
 	
-	@Query(value = "select c from TbCourse c where c.couserName= :courseName")
-	TbCourse findByName(@Param("courseName") String couserName);
+	@Query("select c from TbCourse c where c.courseName= :Name")
+	TbCourse findByName(@Param("Name") String courseName);
 		
 }

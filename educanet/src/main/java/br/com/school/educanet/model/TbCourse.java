@@ -11,25 +11,25 @@ public class TbCourse {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long  couserId;
-	private String couserName;
+	private long  courseId;
+	private String courseName;
 	private Integer workload;
-	private String descrpition;
+	private String description;
 	private String courseClass;
 	
 	
 	
-	public Long getCouserId() {
-		return couserId;
+	public long getCourseId() {
+		return courseId;
 	}
-	public void setCouserId(Long couserId) {
-		this.couserId = couserId;
+	public void setCourseId(long courseId) {
+		this.courseId = courseId;
 	}
-	public String getCouserName() {
-		return couserName;
+	public String getCourseName() {
+		return courseName;
 	}
-	public void setCouserName(String couserName) {
-		this.couserName = couserName;
+	public void setCourseName(String courseName) {
+		this.courseName = courseName;
 	}
 	public Integer getWorkload() {
 		return workload;
@@ -37,11 +37,11 @@ public class TbCourse {
 	public void setWorkload(Integer workload) {
 		this.workload = workload;
 	}
-	public String getDescrpition() {
-		return descrpition;
+	public String getDescription() {
+		return description;
 	}
-	public void setDescrpition(String descrpition) {
-		this.descrpition = descrpition;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 	public String getCourseClass() {
 		return courseClass;
@@ -51,5 +51,7 @@ public class TbCourse {
 	}
 	
 	
-	
+
 }
+	
+	

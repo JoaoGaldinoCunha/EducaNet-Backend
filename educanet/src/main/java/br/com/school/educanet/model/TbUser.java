@@ -7,7 +7,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
-import lombok.Data; 
+import lombok.Data;
 
 @Entity
 @Table(name="tb_user")
@@ -17,16 +17,15 @@ public class TbUser {
 	private String email;
 	private String userCpf;
 	private String userVerification;
-	private String userStatus;
 	@Temporal(TemporalType.DATE)
 	private Date userRegistation = new Date();
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.	IDENTITY)
 	private long userId ;
-	
-	
-	
+
+
+
 	public String getEmail() {
 		return email;
 	}
@@ -51,12 +50,6 @@ public class TbUser {
 	public void setUserCpf(String userCpf) {
 		this.userCpf = userCpf;
 	}
-	public String getUserStatus() {
-		return userStatus;
-	}
-	public void setUserStatus(String userStatus) {
-		this.userStatus = userStatus;
-	}
 	public String getPassword() {
 		return password;
 	}
@@ -75,11 +68,5 @@ public class TbUser {
 	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
-	
-	
-	
-	
-	
 }
-
 

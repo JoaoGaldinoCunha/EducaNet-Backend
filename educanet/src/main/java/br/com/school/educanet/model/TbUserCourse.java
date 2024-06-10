@@ -20,7 +20,7 @@ public class TbUserCourse {
 	TbCourse tbCourse;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long userCourseId;
+	private long userCourseId;
 	
 	
 }

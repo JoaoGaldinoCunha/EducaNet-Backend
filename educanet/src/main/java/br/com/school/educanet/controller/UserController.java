@@ -15,19 +15,29 @@ import br.com.school.educanet.repository.UserRepository;
 public class UserController {
 	
 	@Autowired
-	UserRepository userRepository;
+	private UserRepository userRepository;
 
 
     @PostMapping("/users")
     public ResponseEntity<String> saveUser(@RequestBody TbUser tbUser) {
         TbUser existingUser = userRepository.findByEmail(tbUser.getEmail());
+        TbUser existingCpf = userRepository.findByUserCpf(tbUser.getUserCpf());
         if (existingUser != null) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("E-mail já cadastrado!");
-        } else {
+            return ResponseEntity
+            		.status(HttpStatus.CONFLICT)
+            		.body("E-mail já cadastrado!");
+        } 
+        else if(existingCpf != null) {
+            return ResponseEntity
+            		.status(HttpStatus.CONFLICT)
+            		.body("CPF já cadastrado!");
+        }
+        else {
             userRepository.save(tbUser);
             return ResponseEntity.status(HttpStatus.CREATED).body("Usuário criado com sucesso!");
         }
     }
+    
     
     @DeleteMapping("/users/{email}")
     public ResponseEntity<String> deleteUserByEmail(@PathVariable String email) {
