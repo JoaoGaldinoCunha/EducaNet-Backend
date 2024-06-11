@@ -45,5 +45,6 @@ public class CourseService {
             existingCourse.setCourseClass(updatedCourse.getCourseClass());
         }
         return courseRepository.save(existingCourse);
+        
 	}
 }

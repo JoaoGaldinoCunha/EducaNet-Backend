@@ -9,11 +9,11 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "tb_videoCourse")
+@Table(name = "tb_video_course")
 public class TbVideoCourse {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long videoCourseId;
 	private String videoCourseName;
 	private String videoCourseUrlId;
