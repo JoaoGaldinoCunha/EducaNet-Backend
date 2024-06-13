@@ -1,7 +1,0 @@
-spring.application.name=educanet
-spring.datasource.driverClassName=com.microsoft.sqlserver.jdbc.SQLServerDriver
-spring.datasource.url= jdbc:sqlserver://localhost:1433;encrypt=true;trustServerCertificate=true;databaseName=EDUCANET
-spring.jpa.properties.hibernate.dialect= org.hibernate.dialect.SQLServerDialect
-spring.datasource.username=sa
-spring.datasource.password=sa123
-spring.jpa.hibernate.ddl-auto=none

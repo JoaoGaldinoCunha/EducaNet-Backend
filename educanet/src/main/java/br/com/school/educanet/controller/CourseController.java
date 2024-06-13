@@ -1,10 +1,13 @@
 package br.com.school.educanet.controller;
 
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,13 +15,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.school.educanet.model.TbCourse;
 import br.com.school.educanet.repository.CourseRepository;
+import br.com.school.educanet.service.CourseService;
 
 @RestController
 public class CourseController {
 	
 	@Autowired
 	private CourseRepository courseRepository;
-	
+	@Autowired
+	CourseService courseService;
 	
 	@PostMapping("/courseSave")
 	public ResponseEntity<String> saveCouse (@RequestBody TbCourse tbCourse){
@@ -35,6 +40,7 @@ public class CourseController {
 		
 	}
 	
+	
 	@DeleteMapping("/deleteVideo/{id}")
 	public ResponseEntity<String> deleleteCoursEntity (@PathVariable Integer id){
 		if( courseRepository.findById(id) != null) {
@@ -46,5 +52,11 @@ public class CourseController {
 		return ResponseEntity
 				.status(HttpStatus.NOT_FOUND)
 				.body("Id não encontrado");
+	}
+	
+	
+	@GetMapping("/AllCourses")
+	public ResponseEntity<List<TbCourse>> allCourses( ){
+	return ResponseEntity.status(HttpStatus.OK).body(courseRepository.findAll());
 	}
 }

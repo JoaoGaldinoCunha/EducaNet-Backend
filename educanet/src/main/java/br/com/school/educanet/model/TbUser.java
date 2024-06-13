@@ -9,10 +9,15 @@ import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import lombok.Data;
 
+/**
+ * 
+ */
 @Entity
 @Table(name="tb_user")
 @Data
 public class TbUser {
+	private String userName;
+	private String userLastName;
 	private String password;
 	private String email;
 	private String userCpf;
@@ -26,6 +31,21 @@ public class TbUser {
 
 
 
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	public String getUserLastName() {
+		return userLastName;
+	}
+	public void setUserLastName(String userLastName) {
+		this.userLastName = userLastName;
+	}
+	public void setUserId(long userId) {
+		this.userId = userId;
+	}
 	public String getEmail() {
 		return email;
 	}

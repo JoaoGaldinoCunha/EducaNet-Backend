@@ -1,5 +1,7 @@
 package br.com.school.educanet.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -12,5 +14,12 @@ public interface CourseRepository extends JpaRepository<TbCourse, Integer>{
 	
 	@Query("select c from TbCourse c where c.courseName= :Name")
 	TbCourse findByName(@Param("Name") String courseName);
-		
+
+	@Query("SELECT tc.courseName from TbCourse tc")
+	List<TbCourse>takingAllCourse();
+
+	List<TbCourse> findAll();
+	
+	
+
 }

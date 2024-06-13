@@ -14,13 +14,33 @@ import jakarta.persistence.Table;
 public class TbUserCourse {
 	@OneToOne
 	@JoinColumn(name = "userId")
-	TbUser tbUser;
+	private TbUser tbUser;
 	@OneToOne
 	@JoinColumn(name = "courseId")
-	TbCourse tbCourse;
+	private TbCourse tbCourse;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long userCourseId;
+	
+	
+	public TbUser getTbUser() {
+		return tbUser;
+	}
+	public void setTbUser(TbUser tbUser) {
+		this.tbUser = tbUser;
+	}
+	public TbCourse getTbCourse() {
+		return tbCourse;
+	}
+	public void setTbCourse(TbCourse tbCourse) {
+		this.tbCourse = tbCourse;
+	}
+	public long getUserCourseId() {
+		return userCourseId;
+	}
+	public void setUserCourseId(long userCourseId) {
+		this.userCourseId = userCourseId;
+	}
 	
 	
 }

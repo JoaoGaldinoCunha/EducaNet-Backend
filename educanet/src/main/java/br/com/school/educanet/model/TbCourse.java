@@ -1,5 +1,6 @@
 package br.com.school.educanet.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -11,11 +12,13 @@ public class TbCourse {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "courseId")
 	private long  courseId;
 	private String courseName;
 	private Integer workload;
 	private String description;
 	private String courseClass;
+	
 	
 	
 	
