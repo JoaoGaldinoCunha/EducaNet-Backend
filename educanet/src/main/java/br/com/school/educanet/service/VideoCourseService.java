@@ -1,16 +1,15 @@
 package br.com.school.educanet.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import br.com.school.educanet.model.TbVideoCourse;
 import br.com.school.educanet.repository.VideoCourseRepository;
-
+@Service
 public class VideoCourseService {
 		
 	@Autowired
 		VideoCourseRepository videoCourseRepository;
-		
-	
 		
 		public TbVideoCourse saveVideoCourse(TbVideoCourse tbVideoCourse ) {
 			if (videoCourseRepository.findByName(tbVideoCourse.getVideoCourseName()) != null) {
@@ -29,7 +28,6 @@ public class VideoCourseService {
 			}
             throw new RuntimeException("video não encontrado!");
 		}
-		
 		
 		
 		public TbVideoCourse updateVideoCourse(Integer courseId, TbVideoCourse updatedCourse) {

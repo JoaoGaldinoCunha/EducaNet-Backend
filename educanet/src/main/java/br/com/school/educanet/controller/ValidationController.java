@@ -1,12 +1,16 @@
 package br.com.school.educanet.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.school.educanet.model.TbUser;
+import br.com.school.educanet.repository.UserRepository;
 import br.com.school.educanet.service.ValidationService;
 
 @RestController
@@ -15,17 +19,21 @@ public class ValidationController {
 	
 	@Autowired
     private  ValidationService validationService;
-
+	
+	@Autowired
+	private UserRepository userRepository;
 
 
     @PostMapping("/validateUser")
     public ResponseEntity<String> validateUser(@RequestBody TbUser user) {
           boolean validateUser =  validationService.ValditionUser(user.getEmail(), user.getPassword());
           if (validateUser) {
-              return ResponseEntity.ok("Usuário encontrado!");
+        	  
+              return ResponseEntity.status(HttpStatus.OK).body("okay");
           }
 
-          return ResponseEntity.badRequest().body("Usuário não encontrado!");
+          return null;
+
 
     }
 }

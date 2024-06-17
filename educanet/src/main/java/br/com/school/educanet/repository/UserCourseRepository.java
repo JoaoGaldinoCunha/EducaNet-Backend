@@ -12,6 +12,6 @@ import br.com.school.educanet.model.TbUserCourse;
 import br.com.school.educanet.model.TbVideoCourse;
 @Repository
 public interface UserCourseRepository extends JpaRepository<TbUserCourse, Integer> {
-	@Query("select u.userName,u.userId,uc.userCourseId,c.courseName FROM TbUserCourse uc INNER JOIN  TbUser u INNER JOIN on TbCourse c where u.userId= :id")
+	@Query(value = "SELECT u.user_id, u.user_name, c.course_id, c.course_name FROM tb_user AS INNER tb_user_course AS uc ON u.user_id = uc.user_id INNER tb_course AS c ON uc.course_id = c.course_id WHERE uc.user_course_id = @user_course_id;",nativeQuery = true)
 	List< TbVideoCourse> searchingCoursesByUserId(@Param("id")Integer id);
 }

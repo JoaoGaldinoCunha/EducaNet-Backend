@@ -15,11 +15,7 @@ public interface CourseRepository extends JpaRepository<TbCourse, Integer>{
 	@Query("select c from TbCourse c where c.courseName= :Name")
 	TbCourse findByName(@Param("Name") String courseName);
 
-	@Query("SELECT tc.courseName from TbCourse tc")
-	List<TbCourse>takingAllCourse();
-
 	List<TbCourse> findAll();
-	
 	
 
 }

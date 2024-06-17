@@ -1,5 +1,6 @@
 package br.com.school.educanet.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,8 +20,8 @@ public class TbVideoCourse {
 	private String videoCourseUrlId;
 	private String videoCourseDescription;
 	@ManyToOne
-	@JoinColumn(name = "courseId")
-	TbCourse tbCourse;
+	@JoinColumn(name = "courseId",referencedColumnName = "courseId")
+	private TbCourse tbCourse;
 	
 	
 	public long getVideoCourseId() {
@@ -53,6 +54,7 @@ public class TbVideoCourse {
 	public void setTbCourse(TbCourse tbCourse) {
 		this.tbCourse = tbCourse;
 	}
+	
 	
 	
 	

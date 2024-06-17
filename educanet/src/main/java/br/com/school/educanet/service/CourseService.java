@@ -1,6 +1,7 @@
 package br.com.school.educanet.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,7 +52,11 @@ public class CourseService {
 	}
 	
 	
-
+	public Optional<TbCourse> returningCourseById(Integer id){
+		return courseRepository.findById(id);
+	}
+	
+	
 	public List<TbCourse> returningCourses() {
 		return courseRepository.findAll();
 	}

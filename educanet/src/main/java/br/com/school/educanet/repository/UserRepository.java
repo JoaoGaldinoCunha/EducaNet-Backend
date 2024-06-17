@@ -1,6 +1,8 @@
 package br.com.school.educanet.repository;
 
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -18,7 +20,7 @@ public interface UserRepository extends JpaRepository<TbUser,Integer>{
 	@Query("select use from TbUser use where use.userCpf= :userCpf")
 	TbUser findByUserCpf (@Param("userCpf") String cpf);
 	
-	@Query("select use from TbUser use where use.userVerification= :Type")
-	TbUser findByType (@Param("Type") String userVerification);
+	@Query("select use.email, use.userName,use.userLastName,use.userVerification from TbUser use where use.email= :email")
+	List< TbUser > fetchingUserData (@Param("email") String email);
 
 }
