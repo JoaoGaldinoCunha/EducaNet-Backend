@@ -3,19 +3,30 @@ package br.com.school.educanet.service;
 import java.util.List;
 import java.util.Optional;
 
+import br.com.school.educanet.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import br.com.school.educanet.model.TbCourse;
 import br.com.school.educanet.repository.CourseRepository;
+import br.com.school.educanet.repository.UserCourseRepository;
+import br.com.school.educanet.repository.VideoCourseRepository;
 
 @Service
 public class CourseService {
 	
 	@Autowired
 	CourseRepository courseRepository;
-
 	
-	public TbCourse SaveCourse(TbCourse tbCourse) {
+	@Autowired
+	VideoCourseRepository videoCourseRepository;
+	
+	@Autowired
+	UserCourseRepository userCourseRepository;
+
+	@Autowired
+	UserRepository userRepository;
+
+	public TbCourse saveCourse(TbCourse tbCourse) {
 		if (courseRepository.findByName(tbCourse.getCourseName()) != null) {
 			throw new RuntimeException("Já existe curso com este nome!");
 		}
@@ -23,15 +34,24 @@ public class CourseService {
 	}
 
 	
-	public void DeleteCourse(Integer couserId ) {
-			if(courseRepository.findById(couserId) != null){
-			 courseRepository.deleteById(couserId);
+	public String deleteCourse(long id ) {
+
+		if(courseRepository.existsByCourseId(id)){
+			var tbCourse = courseRepository.findByCourseId(id);
+				if(userCourseRepository.existsByTbCourse(tbCourse)) {
+					return ("Há usuários ativos no curso!");
+				}
+				if (videoCourseRepository.existsByTbCourse(tbCourse)){
+					videoCourseRepository.deleteAllByTbCourse(tbCourse);
+	    		}
+				courseRepository.deleteById(tbCourse.getCourseId());
+				return ("Curso excluído com sucesso!Todos registros de videos foram apagados");
 			}
-            throw new RuntimeException("Curso não encontrado!");
+		return ("Curso não encontrado!");
 	}
 	
 	
-	public TbCourse updateCourse(Integer courseId, TbCourse updatedCourse) {
+	public TbCourse updateCourse(Long courseId, TbCourse updatedCourse) {
         TbCourse existingCourse = courseRepository.findById(courseId)
                 .orElseThrow(() -> new IllegalArgumentException("Curso não encontrado"));
 
@@ -52,7 +72,7 @@ public class CourseService {
 	}
 	
 	
-	public Optional<TbCourse> returningCourseById(Integer id){
+	public Optional<TbCourse> returningCourseById(Long id){
 		return courseRepository.findById(id);
 	}
 	
@@ -60,4 +80,10 @@ public class CourseService {
 	public List<TbCourse> returningCourses() {
 		return courseRepository.findAll();
 	}
-}
+
+	public List<TbCourse> userCourserById(Long id){
+		if (userRepository.existsByUserId(id)){
+			return courseRepository.searchingCoursesByUserId(id);
+		}
+		return null;
+	} }

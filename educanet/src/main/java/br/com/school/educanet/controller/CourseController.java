@@ -1,9 +1,11 @@
 package br.com.school.educanet.controller;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,68 +18,71 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.school.educanet.model.TbCourse;
-import br.com.school.educanet.repository.CourseRepository;
 import br.com.school.educanet.service.CourseService;
 
 @RestController
 public class CourseController {
 	
-	@Autowired
-	private CourseRepository courseRepository;
 	
 	@Autowired
 	CourseService courseService;
-	
+
+
 	
 	@PostMapping("/course/coursesave")
-	public ResponseEntity<String> saveCouse (@RequestBody TbCourse tbCourse){
-		TbCourse existingCourse = courseRepository.findByName(tbCourse.getCourseName());
-		if(existingCourse != null) {
-			return ResponseEntity
-			.status(HttpStatus.CONFLICT)
-			.body("Não foi possivel criar um curso com esse nome pois já um existente");
-		} 
-		else {
-			courseRepository.save(tbCourse);
-			return ResponseEntity
-			.status(HttpStatus.OK)
-			.body("curso criado com sucesso");
-				
-		}
-		
-	}
-	
+	public ResponseEntity<String> saveCourse(@RequestBody TbCourse tbCourse) {
+        try {
+            courseService.saveCourse(tbCourse);
+        	return ResponseEntity
+        			.status(HttpStatus.CONFLICT)
+        			.body("Curso salvo");
+        		
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
 	
 	@DeleteMapping("/course/deleteCourse/{id}")
-	public ResponseEntity<String> deleleteCoursEntity (@PathVariable Integer id){
-		if( courseRepository.findById(id) != null) {
-			courseRepository.deleteById(id);
-			return ResponseEntity
-					.status(HttpStatus.OK)
-					.body("Curso excluido com sucesso");
-		}
-		return ResponseEntity
-				.status(HttpStatus.NOT_FOUND)
-				.body("Id não encontrado");
-	}
+	public ResponseEntity<String> deleteCourse(@PathVariable long id) {
+            return ResponseEntity
+            		.status(HttpStatus.OK)
+            		.body(courseService.deleteCourse(id));
+    }
+	
+
+	@PutMapping("/course/{courseId}")
+    public ResponseEntity<String> updateCourse(@PathVariable Long courseId, @RequestBody TbCourse updatedCourse) {
+         courseService.updateCourse(courseId, updatedCourse);
+        return ResponseEntity
+        		.ok("Curso Atualizado com sucesso");
+    }
 	
 	
 	@GetMapping("/course/AllCourses")
-	public ResponseEntity<List<TbCourse>> allCourses( ){
-	return ResponseEntity.status(HttpStatus.OK).body(courseRepository.findAll());
-	}
+	public ResponseEntity<List<TbCourse>> getCourses() {
+        List<TbCourse> courses = courseService.returningCourses();
+        return ResponseEntity
+        		.ok(courses);
+    }
 	
 	
 	@GetMapping("/course/{id}")
-	public ResponseEntity<Optional<TbCourse>> FindByIdCourse(@PathVariable Integer id){
-		return ResponseEntity.status(HttpStatus.OK).body(courseService.returningCourseById(id));
+	public ResponseEntity<Optional<TbCourse>> FindByIdCourse(@PathVariable Long id){
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.body(courseService.returningCourseById(id));
 	}
-	
-	
-	@PutMapping("/course/{courseId}")
-    public ResponseEntity<String> updateCourse(@PathVariable Integer courseId, @RequestBody TbCourse updatedCourse) {
-        TbCourse course = courseService.updateCourse(courseId, updatedCourse);
-        return ResponseEntity.ok("Curso Atualizado com sucesso");
-    }
+
+	@GetMapping("/CoursesById/{id}")
+	public ResponseEntity<String> searchingCoursesById(@PathVariable Long id){
+
+		Gson gson =  new Gson();
+		var result = courseService.userCourserById(id);
+		var json = gson.toJson(result, ArrayList.class);
+
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.body(json);
+	}
 }
 

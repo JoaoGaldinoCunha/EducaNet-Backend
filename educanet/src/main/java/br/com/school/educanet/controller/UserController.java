@@ -8,45 +8,35 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
 import br.com.school.educanet.model.TbUser;
-import br.com.school.educanet.repository.UserRepository;
+import br.com.school.educanet.service.UserService;
 
 @RestController
 public class UserController {
 	
-	@Autowired
-	private UserRepository userRepository;
-
-
+    @Autowired
+    private UserService userService;    
+    
     @PostMapping("/users")
     public ResponseEntity<String> saveUser(@RequestBody TbUser tbUser) {
-        TbUser existingUser = userRepository.findByEmail(tbUser.getEmail());
-        TbUser existingCpf = userRepository.findByUserCpf(tbUser.getUserCpf());
-        if (existingUser != null) {
-            return ResponseEntity
-            		.status(HttpStatus.CONFLICT)
-            		.body("E-mail já cadastrado!");
-        } 
-        else if(existingCpf != null) {
-            return ResponseEntity
-            		.status(HttpStatus.CONFLICT)
-            		.body("CPF já cadastrado!");
-        }
-        else {
-            userRepository.save(tbUser);
+        try {
+            userService.saveUser(tbUser);
             return ResponseEntity.status(HttpStatus.CREATED).body("Usuário criado com sucesso!");
+
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
     
     
-    @DeleteMapping("/users/{email}")
-    public ResponseEntity<String> deleteUserByEmail(@PathVariable String email) {
-        TbUser existingUser = userRepository.findByEmail(email);
-        if (existingUser != null) {
-            userRepository.delete(existingUser);
+    @DeleteMapping("user/{id}")
+    public ResponseEntity<String> deleteUser(@PathVariable Long id) {
+    	try {
+            userService.deleteUserById(id);
             return ResponseEntity.ok("Usuário excluído com sucesso!");
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuário não encontrado!");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
 
