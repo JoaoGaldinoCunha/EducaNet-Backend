@@ -25,6 +25,12 @@ public class UserCouserController {
 				.status(HttpStatus.OK)
 				.body(userCourseService.saveUserInCourse(userCourseRequest.getUserId(), userCourseRequest.getCourseId()));
 	}
-	
+
+	@DeleteMapping("/RemoveUserFromCourse")
+	public ResponseEntity<String> removeUserFromCourse(@RequestBody UserCourseRequest userCourseRequest){
+		return ResponseEntity
+				.ok()
+				.body(userCourseService.removeUserFromCourse(userCourseRequest.getUserId(), userCourseRequest.getCourseId()));
+	}
 	
 }

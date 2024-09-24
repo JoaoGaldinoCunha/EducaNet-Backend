@@ -27,4 +27,9 @@ public interface UserCourseRepository extends JpaRepository<TbUserCourse, Long> 
 	void saveUserInCourse(long tbUser, long tbCourse);
 
 	boolean existsByTbCourseAndTbUser(TbCourse tbCourse, TbUser tbUser);
+
+	@Modifying
+	@Transactional
+	@Query(value = "DELETE FROM tb_user_course WHERE userId = :tbUser AND courseId = :tbCourse", nativeQuery = true)
+	void deleteUserFromCourse(long tbCourse, long tbUser);
 }

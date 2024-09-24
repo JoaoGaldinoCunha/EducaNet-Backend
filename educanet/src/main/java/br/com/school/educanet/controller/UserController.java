@@ -1,5 +1,6 @@
 package br.com.school.educanet.controller;
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,8 +34,7 @@ public class UserController {
     @DeleteMapping("user/{id}")
     public ResponseEntity<String> deleteUser(@PathVariable Long id) {
     	try {
-            userService.deleteUserById(id);
-            return ResponseEntity.ok("Usuário excluído com sucesso!");
+            return ResponseEntity.ok(userService.deleteUserById(id));
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }

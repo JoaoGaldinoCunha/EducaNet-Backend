@@ -37,4 +37,24 @@ public class UserCourseService {
 		}
 		return ("Erro ao Linkar usuário e curso!");
 	}
+
+
+
+	public String removeUserFromCourse(Long userId, Long courseId){
+
+		if(courseRepository.existsByCourseId(courseId) && userRepository.existsById(userId)){
+			var course = courseRepository.findByCourseId(courseId);
+			var user =  userRepository.findByUserId(userId);
+
+			if (userCourseRepository.existsByTbCourseAndTbUser(course, user)){
+				userCourseRepository.deleteUserFromCourse(course.getCourseId(), user.getUserId());
+				return ("Usuário removido do curso com sucesso!");
+			}
+
+			throw new RuntimeException("Usuário não possui matricula neste curso!");
+
+		}
+		throw new RuntimeException("Usuário ou Curso não encontrado!");
+	}
+
 }

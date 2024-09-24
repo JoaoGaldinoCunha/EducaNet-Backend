@@ -35,22 +35,19 @@ public class UserService {
 	    }
 	
 	 
-	 public void deleteUserById(Long id) {
+	 public String deleteUserById(Long id) {
 	        Optional<TbUser> existingUser = userRepository.findById(id);
 	        if (existingUser != null) {
-	        	if(userCourseRepository.searchingById(id)!=null) {
-	    			userCourseRepository.deleteById(userCourseRepository.searchingById(id));
-	    			userRepository.deleteById(id);
-	    			throw new RuntimeException("Usuário excluído com sucesso!Todos registros em cursos foram apagados");
-	    		}
-	        	userRepository.deleteById(id);
-         }
-	        else {
-	            throw new RuntimeException("Usuário não encontrado!");
-
+				if (userCourseRepository.searchingById(id) != null) {
+					userCourseRepository.deleteById(userCourseRepository.searchingById(id));
+					userRepository.deleteById(id);
+					return ("Usuário excluído com sucesso!Todos registros em cursos foram apagados");
+				}
+				userRepository.deleteById(id);
+				return ("Usuário excluido com sucesso!");
 			}
+			throw new RuntimeException ("Usuário não encontrado!");
 	 }
-	 
-	 
+
 }
 
