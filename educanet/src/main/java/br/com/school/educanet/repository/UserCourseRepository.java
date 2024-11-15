@@ -7,6 +7,7 @@ import br.com.school.educanet.model.TbUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import br.com.school.educanet.model.TbCourse;
@@ -32,4 +33,10 @@ public interface UserCourseRepository extends JpaRepository<TbUserCourse, Long> 
 	@Transactional
 	@Query(value = "DELETE FROM tb_user_course WHERE userId = :tbUser AND courseId = :tbCourse", nativeQuery = true)
 	void deleteUserFromCourse(long tbCourse, long tbUser);
+	@Query(value = "SELECT u.userName, u.userLastName, c.courseName,uc.userCourseId,c.courseId,u.userId " +
+			"FROM tb_user u " +
+			"JOIN tb_user_course uc ON u.userId = uc.userId " +
+			"JOIN tb_course c ON uc.courseId = c.courseId " +
+			"WHERE c.courseId = :id", nativeQuery = true)
+	List<TbUserCourse> searchingUserRegisteredInCourses (@Param("id") long id);
 }

@@ -1,16 +1,16 @@
 package br.com.school.educanet.service;
 
 
-import java.util.List;
-
 import br.com.school.educanet.model.TbUserCourse;
 import br.com.school.educanet.repository.CourseRepository;
 import br.com.school.educanet.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.com.school.educanet.model.TbCourse;
 import br.com.school.educanet.repository.UserCourseRepository;
+
+import java.util.List;
+
 @Service
 public class UserCourseService {
 	@Autowired
@@ -57,4 +57,10 @@ public class UserCourseService {
 		throw new RuntimeException("Usuário ou Curso não encontrado!");
 	}
 
+	public List<TbUserCourse> searchUserInCourse(Long id){
+		if (courseRepository.existsByCourseId(id)){
+			return userCourseRepository.searchingUserRegisteredInCourses(id);
+		}
+		return null;
+	}
 }
