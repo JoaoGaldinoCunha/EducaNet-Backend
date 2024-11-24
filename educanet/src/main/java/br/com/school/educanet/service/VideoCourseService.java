@@ -57,11 +57,20 @@ public class VideoCourseService {
 	        return videoCourseRepository.save(existingCourse);
 		}
 
-	public List<TbVideoCourse> userVideoCourserById(Long id){
+
+		public List<TbVideoCourse> userVideoCourserById(Long id){
 		if (userRepository.existsByUserId(id)){
 			return videoCourseRepository.searchingVideoCoursesByUserId(id);
 		}
 		return null;
+		}
+
+		public List<TbVideoCourse> allVideoCourses(){
+			return videoCourseRepository.searchingAllVideoCourses();
+		}
 	}
+
+
+
 		
-}
+

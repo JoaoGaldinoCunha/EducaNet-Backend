@@ -26,4 +26,9 @@ public interface VideoCourseRepository extends JpaRepository<TbVideoCourse, Inte
 
 	@Query(value = "SELECT c.courseId,c.courseName,v.videoCourseId,v.videoCourseName,v.videoCourseDescription,v.videoCourseUrlId FROM tb_user_course uc JOIN tb_course c ON uc.courseId = c.courseId JOIN tb_videoCourse v ON v.courseId = c.courseId WHERE uc.userId= :id ;",nativeQuery = true)
 	List<TbVideoCourse> searchingVideoCoursesByUserId(long id);
+
+	@Query(value = "select * from tb_videoCourse ;",nativeQuery = true)
+	List<TbVideoCourse> searchingAllVideoCourses();
+
 }
+

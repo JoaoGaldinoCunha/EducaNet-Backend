@@ -64,4 +64,17 @@ public class VideoCourseController {
 				.status(HttpStatus.OK)
 				.body(json);
 	}
+
+	@GetMapping("/allVideoCourses")
+	public ResponseEntity<String> allVideoCourses() {
+		Gson gson = new Gson();
+		var result = videoCourseService.allVideoCourses();
+		var json = gson.toJson(result, ArrayList.class);
+
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.body(json);
+	}
+
 }
+
