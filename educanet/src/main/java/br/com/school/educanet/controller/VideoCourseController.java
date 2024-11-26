@@ -41,6 +41,7 @@ public class VideoCourseController {
 	public ResponseEntity<String>deleteVideoCourse(@PathVariable Integer id){
 		Optional<TbVideoCourse> existingVideoCourse = videoCourseRepository.findById(id);
 		if(existingVideoCourse != null) {
+
 			videoCourseRepository.deleteById(id);
 			return ResponseEntity.ok("Usuário apago com sucesso!");
 		}
@@ -50,7 +51,7 @@ public class VideoCourseController {
 	
 	  @PutMapping("/videoCourse/{courseId}")
 	    public ResponseEntity<String> updateVideoCourse(@PathVariable Integer courseId, @RequestBody TbVideoCourse updatedCourse) {
-	        TbVideoCourse course = videoCourseService.updateVideoCourse(courseId, updatedCourse);
+	        videoCourseService.updateVideoCourse(courseId, updatedCourse);
 	        return ResponseEntity.ok("savlo com sucesso");
 	    }
 }

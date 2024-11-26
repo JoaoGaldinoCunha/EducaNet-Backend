@@ -1,6 +1,7 @@
 package br.com.school.educanet.model;
 
 
+import com.fasterxml.jackson.annotation.JsonAlias;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -13,10 +14,12 @@ import jakarta.persistence.Table;
 @Table(name = "tb_user_course")
 public class TbUserCourse {
 	@OneToOne
-	@JoinColumn(name = "userId")
+	@JoinColumn(name = "userId", referencedColumnName = "userId")
+	@JsonAlias("user")
 	private TbUser tbUser;
 	@OneToOne
-	@JoinColumn(name = "courseId")
+	@JoinColumn(name = "courseId", referencedColumnName = "courseId")
+	@JsonAlias("course")
 	private TbCourse tbCourse;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
