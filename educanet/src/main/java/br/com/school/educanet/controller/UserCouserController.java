@@ -1,9 +1,14 @@
 package br.com.school.educanet.controller;
 
 import br.com.school.educanet.model.request.UserCourseRequest;
+<<<<<<< HEAD
 import org.springframework.web.bind.annotation.*;
 
 import com.google.gson.Gson;
+=======
+import com.google.gson.Gson;
+import org.springframework.web.bind.annotation.*;
+>>>>>>> 67acf015e9231c8cffc3e95cb6359119ddcf4019
 
 import br.com.school.educanet.service.UserCourseService;
 
@@ -11,6 +16,11 @@ import br.com.school.educanet.service.UserCourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+<<<<<<< HEAD
+=======
+
+import java.util.ArrayList;
+>>>>>>> 67acf015e9231c8cffc3e95cb6359119ddcf4019
 
 
 @RestController
@@ -25,6 +35,25 @@ public class UserCouserController {
 				.status(HttpStatus.OK)
 				.body(userCourseService.saveUserInCourse(userCourseRequest.getUserId(), userCourseRequest.getCourseId()));
 	}
-	
-	
+
+	@DeleteMapping("/RemoveUserFromCourse")
+	public ResponseEntity<String> removeUserFromCourse(@RequestBody UserCourseRequest userCourseRequest){
+		return ResponseEntity
+				.ok()
+				.body(userCourseService.removeUserFromCourse(userCourseRequest.getUserId(), userCourseRequest.getCourseId()));
+	}
+
+	@GetMapping("/courseUser/{id}")
+	public ResponseEntity<String> searchUsersByCourseId(@PathVariable Long id){
+
+		Gson gson =  new Gson();
+		var result = userCourseService.searchUserInCourse(id);
+		var json = gson.toJson(result, ArrayList.class);
+
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.body(json);
+	}
+
+
 }

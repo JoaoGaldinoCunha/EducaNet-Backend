@@ -1,16 +1,13 @@
 package br.com.school.educanet.controller;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
+import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import br.com.school.educanet.model.TbVideoCourse;
 import br.com.school.educanet.repository.VideoCourseRepository;
@@ -54,4 +51,30 @@ public class VideoCourseController {
 	        videoCourseService.updateVideoCourse(courseId, updatedCourse);
 	        return ResponseEntity.ok("savlo com sucesso");
 	    }
+
+
+	@GetMapping("/VideoCoursesById/{id}")
+	public ResponseEntity<String> searchingVideoCoursesById(@PathVariable Long id){
+
+		Gson gson =  new Gson();
+		var result = videoCourseService.userVideoCourserById(id);
+		var json = gson.toJson(result, ArrayList.class);
+
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.body(json);
+	}
+
+	@GetMapping("/allVideoCourses")
+	public ResponseEntity<String> allVideoCourses() {
+		Gson gson = new Gson();
+		var result = videoCourseService.allVideoCourses();
+		var json = gson.toJson(result, ArrayList.class);
+
+		return ResponseEntity
+				.status(HttpStatus.OK)
+				.body(json);
+	}
+
 }
+
