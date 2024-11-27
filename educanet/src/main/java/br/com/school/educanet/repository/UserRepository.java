@@ -11,22 +11,16 @@ import br.com.school.educanet.model.TbUser;
 
 
 @Repository
-public interface UserRepository extends JpaRepository<TbUser,Long>{
+public interface UserRepository extends JpaRepository<TbUser,Integer>{
 	
-	TbUser findByEmail(String email);
+	 TbUser findByEmail(String email);
 	
-	boolean existsByPasswordAndEmail(String password,String email);
-
+	 boolean existsByPasswordAndEmail(String password,String email);
+	
 	@Query("select use from TbUser use where use.userCpf= :userCpf")
 	TbUser findByUserCpf (@Param("userCpf") String cpf);
-	
-	@Query("select use.userVerification,use.userId from TbUser use where use.email= :useremail")
-	List<String[]> ReturnId(@Param ("useremail")String email);
 	
 	@Query("select use.email, use.userName,use.userLastName,use.userVerification from TbUser use where use.email= :email")
 	List< TbUser > fetchingUserData (@Param("email") String email);
 
-	TbUser findByUserId(long userId);
-
-	boolean existsByUserId(long userId);
 }

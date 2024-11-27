@@ -3,28 +3,15 @@ package br.com.school.educanet.repository;
 
 import java.util.List;
 
-import br.com.school.educanet.model.TbUser;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import br.com.school.educanet.model.TbCourse;
 import br.com.school.educanet.model.TbUserCourse;
-import org.springframework.transaction.annotation.Transactional;
-
+import br.com.school.educanet.model.TbVideoCourse;
 @Repository
-public interface UserCourseRepository extends JpaRepository<TbUserCourse, Long> {
-	
-	@Query(value = "SELECT userCourseId FROM tb_user_course WHERE userId = :id",nativeQuery = true)
-	Long searchingById(long id);
-
-	boolean existsByTbCourse(TbCourse tbCourse);
-
-	@Modifying
-	@Transactional
-	@Query(value = "INSERT into tb_user_course (userId, courseId) VALUE (:tbUser , :tbCourse)", nativeQuery = true)
-	void saveUserInCourse(long tbUser, long tbCourse);
-
-	boolean existsByTbCourseAndTbUser(TbCourse tbCourse, TbUser tbUser);
+public interface UserCourseRepository extends JpaRepository<TbUserCourse, Integer> {
+	@Query(value = "SELECT u.user_id, u.user_name, c.course_id, c.course_name FROM tb_user AS INNER tb_user_course AS uc ON u.user_id = uc.user_id INNER tb_course AS c ON uc.course_id = c.course_id WHERE uc.user_course_id = @user_course_id;",nativeQuery = true)
+	List< TbVideoCourse> searchingCoursesByUserId(@Param("id")Integer id);
 }

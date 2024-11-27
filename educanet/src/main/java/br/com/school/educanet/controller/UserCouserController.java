@@ -1,16 +1,15 @@
 package br.com.school.educanet.controller;
 
-import br.com.school.educanet.model.request.UserCourseRequest;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
 
-import com.google.gson.Gson;
-
+import br.com.school.educanet.model.TbVideoCourse;
 import br.com.school.educanet.service.UserCourseService;
 
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 
 
 @RestController
@@ -18,12 +17,11 @@ public class UserCouserController {
 	
 	@Autowired
 	UserCourseService userCourseService;
-
-	@PostMapping("/JoinUserInCourse")
-	public ResponseEntity<String> insertUserAndCourse(@RequestBody UserCourseRequest userCourseRequest){
-		return ResponseEntity
-				.status(HttpStatus.OK)
-				.body(userCourseService.saveUserInCourse(userCourseRequest.getUserId(), userCourseRequest.getCourseId()));
+	
+	
+	@GetMapping("/CoursesById/{id}")
+	public List<TbVideoCourse> searchingCoursesById(@PathVariable Integer id){
+		return userCourseService.userCourserById(id);
 	}
 	
 	
