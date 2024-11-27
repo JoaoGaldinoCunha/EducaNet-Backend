@@ -23,26 +23,8 @@ public interface UserCourseRepository extends JpaRepository<TbUserCourse, Long> 
 
 	@Modifying
 	@Transactional
-<<<<<<< HEAD
 	@Query(value = "INSERT into tb_user_course (userId, courseId) VALUE (:tbUser , :tbCourse)", nativeQuery = true)
 	void saveUserInCourse(long tbUser, long tbCourse);
 
 	boolean existsByTbCourseAndTbUser(TbCourse tbCourse, TbUser tbUser);
-=======
-	@Query(value = "INSERT into tb_user_course (userId, courseId) VALUES (:tbUser , :tbCourse)", nativeQuery = true)
-	void saveUserInCourse(long tbUser, long tbCourse);
-
-	boolean existsByTbCourseAndTbUser(TbCourse tbCourse, TbUser tbUser);
-
-	@Modifying
-	@Transactional
-	@Query(value = "DELETE FROM tb_user_course WHERE userId = :tbUser AND courseId = :tbCourse", nativeQuery = true)
-	void deleteUserFromCourse(long tbCourse, long tbUser);
-	@Query(value = "SELECT u.userName, u.userLastName, c.courseName,uc.userCourseId,c.courseId,u.userId " +
-			"FROM tb_user u " +
-			"JOIN tb_user_course uc ON u.userId = uc.userId " +
-			"JOIN tb_course c ON uc.courseId = c.courseId " +
-			"WHERE c.courseId = :id", nativeQuery = true)
-	List<TbUserCourse> searchingUserRegisteredInCourses (@Param("id") long id);
->>>>>>> 67acf015e9231c8cffc3e95cb6359119ddcf4019
 }

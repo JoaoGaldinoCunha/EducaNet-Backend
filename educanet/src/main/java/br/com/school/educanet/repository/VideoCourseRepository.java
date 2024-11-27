@@ -7,11 +7,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import br.com.school.educanet.model.TbVideoCourse;
 import org.springframework.transaction.annotation.Transactional;
-<<<<<<< HEAD
-=======
-
-import java.util.List;
->>>>>>> 67acf015e9231c8cffc3e95cb6359119ddcf4019
 
 @Repository
 public interface VideoCourseRepository extends JpaRepository<TbVideoCourse, Integer> {
@@ -26,15 +21,4 @@ public interface VideoCourseRepository extends JpaRepository<TbVideoCourse, Inte
 	void deleteAllByTbCourse(TbCourse tbCourse);
 
 	boolean existsByTbCourse(TbCourse tbCourse);
-<<<<<<< HEAD
-=======
-
-	@Query(value = "SELECT c.courseId,c.courseName,v.videoCourseId,v.videoCourseName,v.videoCourseDescription,v.videoCourseUrlId FROM tb_user_course uc JOIN tb_course c ON uc.courseId = c.courseId JOIN tb_videoCourse v ON v.courseId = c.courseId WHERE uc.userId= :id ;",nativeQuery = true)
-	List<TbVideoCourse> searchingVideoCoursesByUserId(long id);
-
-	@Query(value = "select * from tb_videoCourse ;",nativeQuery = true)
-	List<TbVideoCourse> searchingAllVideoCourses();
-
->>>>>>> 67acf015e9231c8cffc3e95cb6359119ddcf4019
 }
-

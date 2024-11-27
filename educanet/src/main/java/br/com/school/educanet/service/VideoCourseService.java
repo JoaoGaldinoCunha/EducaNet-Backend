@@ -1,25 +1,17 @@
 package br.com.school.educanet.service;
 
-import br.com.school.educanet.model.TbCourse;
-import br.com.school.educanet.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.school.educanet.model.TbVideoCourse;
 import br.com.school.educanet.repository.VideoCourseRepository;
-
-import java.util.List;
-
 @Service
 public class VideoCourseService {
 		
 	@Autowired
 		VideoCourseRepository videoCourseRepository;
-	@Autowired
-	UserRepository userRepository;
-
-
-	public TbVideoCourse saveVideoCourse(TbVideoCourse tbVideoCourse ) {
+		
+		public TbVideoCourse saveVideoCourse(TbVideoCourse tbVideoCourse ) {
 			if (videoCourseRepository.findByName(tbVideoCourse.getVideoCourseName()) != null) {
 	            throw new RuntimeException("nome do vide existente !!");
 
@@ -56,21 +48,5 @@ public class VideoCourseService {
 	        }
 	        return videoCourseRepository.save(existingCourse);
 		}
-
-
-		public List<TbVideoCourse> userVideoCourserById(Long id){
-		if (userRepository.existsByUserId(id)){
-			return videoCourseRepository.searchingVideoCoursesByUserId(id);
-		}
-		return null;
-		}
-
-		public List<TbVideoCourse> allVideoCourses(){
-			return videoCourseRepository.searchingAllVideoCourses();
-		}
-	}
-
-
-
 		
-
+}
